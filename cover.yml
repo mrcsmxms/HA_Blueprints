@@ -45,95 +45,95 @@ blueprint:
           max: 100
           unit_of_measurement: "%"
 
-automation:
-  trigger:
-    - platform: state
-      entity_id: !input fenster_sensor
-      from: "off"
-      to: "on"
-      id: geoeffnet
-    - platform: state
-      entity_id: !input fenster_sensor
-      from: "on"
-      to: "off"
-      for:
-        seconds: 2
-      id: geschlossen
-  action:
-    - choose:
-        - conditions:
-            - condition: trigger
-              id: geoeffnet
-          sequence:
-            - service: switch.turn_on
-              target:
-                entity_id: !input manual_override_switch
-            - choose:
-                - conditions:
-                    - condition: sun
-                      before: sunset
-                      after: sunrise
-                  sequence:
-                    - condition: numeric_state
+trigger:
+  - platform: state
+    entity_id: !input fenster_sensor
+    from: "off"
+    to: "on"
+    id: geoeffnet
+  - platform: state
+    entity_id: !input fenster_sensor
+    from: "on"
+    to: "off"
+    for:
+      seconds: 2
+    id: geschlossen
+
+action:
+  - choose:
+      - conditions:
+          - condition: trigger
+            id: geoeffnet
+        sequence:
+          - service: switch.turn_on
+            target:
+              entity_id: !input manual_override_switch
+          - choose:
+              - conditions:
+                  - condition: sun
+                    before: sunset
+                    after: sunrise
+                sequence:
+                  - condition: numeric_state
+                    entity_id: !input rollo
+                    attribute: current_position
+                    below: 100
+                  - service: cover.open_cover
+                    target:
                       entity_id: !input rollo
-                      attribute: current_position
-                      below: 100
-                    - service: cover.open_cover
-                      target:
-                        entity_id: !input rollo
-                - conditions:
-                    - condition: sun
-                      after: sunset
-                      before: sunrise
-                  sequence:
-                    - condition: numeric_state
+              - conditions:
+                  - condition: sun
+                    after: sunset
+                    before: sunrise
+                sequence:
+                  - condition: numeric_state
+                    entity_id: !input rollo
+                    attribute: current_position
+                    below: !input lueft_position_abends
+                  - service: cover.set_cover_position
+                    target:
                       entity_id: !input rollo
-                      attribute: current_position
-                      below: !input lueft_position_abends
-                    - service: cover.set_cover_position
-                      target:
-                        entity_id: !input rollo
-                      data:
-                        position: !input lueft_position_abends
-        - conditions:
-            - condition: trigger
-              id: geschlossen
-          sequence:
-            - service: switch.turn_off
-              target:
-                entity_id: !input manual_override_switch
-            - choose:
-                - conditions:
-                    - condition: state
+                    data:
+                      position: !input lueft_position_abends
+      - conditions:
+          - condition: trigger
+            id: geschlossen
+        sequence:
+          - service: switch.turn_off
+            target:
+              entity_id: !input manual_override_switch
+          - choose:
+              - conditions:
+                  - condition: state
+                    entity_id: !input toggle_control_switch
+                    state: "on"
+                sequence:
+                  - service: switch.turn_off
+                    target:
                       entity_id: !input toggle_control_switch
-                      state: "on"
-                  sequence:
-                    - service: switch.turn_off
-                      target:
-                        entity_id: !input toggle_control_switch
-                    - delay: "00:00:01"
-                    - service: switch.turn_on
-                      target:
-                        entity_id: !input toggle_control_switch
-                - conditions:
-                    - condition: sun
-                      before: sunset
-                      after: sunrise
-                      before_offset: "-00:90:00"
-                  sequence:
-                    - condition: numeric_state
+                  - delay: "00:00:01"
+                  - service: switch.turn_on
+                    target:
+                      entity_id: !input toggle_control_switch
+              - conditions:
+                  - condition: sun
+                    before: sunset
+                    after: sunrise
+                    before_offset: "-00:90:00"
+                sequence:
+                  - condition: numeric_state
+                    entity_id: !input rollo
+                    attribute: current_position
+                    below: 100
+                  - service: cover.open_cover
+                    target:
                       entity_id: !input rollo
-                      attribute: current_position
-                      below: 100
-                    - service: cover.open_cover
-                      target:
-                        entity_id: !input rollo
-                - conditions:
-                    - condition: sun
-                      after: sunset
-                  sequence:
-                    - service: cover.set_cover_position
-                      target:
-                        entity_id: !input rollo
-                      data:
-                        position: !input schliess_position_abends
+              - conditions:
+                  - condition: sun
+                    after: sunset
+                sequence:
+                  - service: cover.set_cover_position
+                    target:
+                      entity_id: !input rollo
+                    data:
+                      position: !input schliess_position_abends
