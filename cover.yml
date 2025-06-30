@@ -6,12 +6,12 @@ blueprint:
   domain: automation
   input:
     fenster_sensor:
-      name: Fensterkontakt
+      name: Fenster-/Türkontakt
       selector:
         entity:
           domain: binary_sensor
     rollo:
-      name: Rollo
+      name: Rollade
       selector:
         entity:
           domain: cover
