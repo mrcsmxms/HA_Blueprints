@@ -7,44 +7,50 @@ blueprint:
   domain: automation
 
   input:
-    # =======================
-    # INPUTS (einmalig)
-    # =======================
-    button_event_entity:
-      name: Mode 1 Button Event Entity (Event Button 3)
-      selector:
-        entity:
-          domain: event
+    Input_settings:
+      name: "Input Seeting"
+      icon: mdi:current-ac
+      collapsed: true
 
-    scroll_plus_sensor:
-      name: Mode 1 Scroll right Sensor (Sensor 1)
-      selector:
-        entity:
-          domain: sensor
-
-    scroll_minus_sensor:
-      name: Mode 1 Scroll left Sensor (Sensor 2)
-      selector:
-        entity:
-          domain: sensor
-
-    scroll_plus_sensor_mode2:
-      name: Mode 2 Scroll right Sensor (Sensor 4)
-      selector:
-        entity:
-          domain: sensor
-
-    scroll_minus_sensor_mode2:
-      name: Mode 2 Scroll left Sensor (Sensor 5)
-      selector:
-        entity:
-          domain: sensor
-
-    button_event_entity_mode2:
-      name: Mode 2 Button Event Entity (Event Button 6)
-      selector:
-        entity:
-          domain: event
+        input:
+          # =======================
+          # INPUTS (einmalig)
+          # =======================
+          button_event_entity:
+            name: Mode 1 Button Event Entity (Event Button 3)
+            selector:
+              entity:
+                domain: event
+        
+          scroll_plus_sensor:
+            name: Mode 1 Scroll right Sensor (Sensor 1)
+            selector:
+              entity:
+                domain: sensor
+        
+          scroll_minus_sensor:
+            name: Mode 1 Scroll left Sensor (Sensor 2)
+            selector:
+              entity:
+                domain: sensor
+        
+          scroll_plus_sensor_mode2:
+            name: Mode 2 Scroll right Sensor (Sensor 4)
+            selector:
+              entity:
+                domain: sensor
+        
+          scroll_minus_sensor_mode2:
+            name: Mode 2 Scroll left Sensor (Sensor 5)
+            selector:
+              entity:
+                domain: sensor
+        
+          button_event_entity_mode2:
+            name: Mode 2 Button Event Entity (Event Button 6)
+            selector:
+              entity:
+                domain: event
 
     # =======================
     # ACTIONS (häufiger angepasst)
