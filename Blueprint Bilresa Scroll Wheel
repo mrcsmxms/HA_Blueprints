@@ -1,8 +1,9 @@
 blueprint:
-  name: Scrollwheel – Taste 1 (multi-press + hold + scroll)
+  name: Scrollwheel – Taste 1 (Actions only)
   description: >
-    Robust gegen gleiche event_type-Wiederholungen (z.B. multi_press_1 zweimal hintereinander),
-    da "Druck" auf jedes State-Update triggert und erst in der Action nach event_type gefiltert wird.
+    Taste 1 eines Scrollwheel-Buttons.
+    Multi-Press, Hold und Scroll werden ausschließlich über frei definierbare Aktionen abgebildet.
+    Der breite Druck-Trigger stellt sicher, dass gleiche event_type-Werte mehrfach hintereinander erkannt werden.
   domain: automation
 
   input:
@@ -24,36 +25,109 @@ blueprint:
         entity:
           domain: sensor
 
-    target_single:
-      name: Target bei multi_press_1
+    multi_press_1_action:
+      name: Aktion bei multi_press_1
+      default: []
       selector:
-        target:
-          entity:
-            domain: light
+        action:
 
-    target_double:
-      name: Target bei multi_press_2
+    multi_press_2_action:
+      name: Aktion bei multi_press_2
+      default: []
       selector:
-        target:
-          entity:
-            domain: light
+        action:
 
-    brightness_step:
-      name: Helligkeitsschritt (%)
-      default: 15
-      selector:
-        number:
-          min: 1
-          max: 100
-          mode: slider
-          unit_of_measurement: "%"
-
-    hold_action:
+    long_press_action:
       name: Aktion bei long_press (gedrückt halten)
       default: []
       selector:
-        action: {}
+        action:
 
-    release_action:
+    long_release_action:
       name: Aktion bei long_release (loslassen)
       default: []
+      selector:
+        action:
+
+    scroll_plus_action:
+      name: Aktion bei Scroll +
+      default: []
+      selector:
+        action:
+
+    scroll_minus_action:
+      name: Aktion bei Scroll -
+      default: []
+      selector:
+        action:
+
+mode: parallel
+max: 20
+
+trigger:
+  # Breiter Trigger für Multi-Press (auch gleiche event_type-Werte hintereinander)
+  - platform: state
+    entity_id: !input button_event_entity
+    id: "1 Druck"
+
+  - platform: state
+    entity_id: !input button_event_entity
+    attribute: event_type
+    to: long_press
+    id: "1 gedrückt halten"
+
+  - platform: state
+    entity_id: !input button_event_entity
+    attribute: event_type
+    to: long_release
+    id: "1 gedrückt halten loslassen"
+
+  - platform: state
+    entity_id: !input scroll_plus_sensor
+    to: "1"
+    id: "1 scroll +"
+
+  - platform: state
+    entity_id: !input scroll_minus_sensor
+    to: "1"
+    id: "1 scroll -"
+
+action:
+  - variables:
+      et: "{{ trigger.to_state.attributes.event_type if trigger.to_state else none }}"
+
+  - choose:
+      - conditions:
+          - condition: trigger
+            id: "1 Druck"
+        sequence:
+          - choose:
+              - conditions:
+                  - condition: template
+                    value_template: "{{ et == 'multi_press_1' }}"
+                sequence: !input multi_press_1_action
+
+              - conditions:
+                  - condition: template
+                    value_template: "{{ et == 'multi_press_2' }}"
+                sequence: !input multi_press_2_action
+
+      - conditions:
+          - condition: trigger
+            id: "1 gedrückt halten"
+        sequence: !input long_press_action
+
+      - conditions:
+          - condition: trigger
+            id: "1 gedrückt halten loslassen"
+        sequence: !input long_release_action
+
+      - conditions:
+          - condition: trigger
+            id: "1 scroll +"
+        sequence: !input scroll_plus_action
+
+      - conditions:
+          - condition: trigger
+            id: "1 scroll -"
+        sequence: !input scroll_minus_action
