@@ -1,0 +1,25 @@
+blueprint:
+  name: IKEA Bilresa Scroll Wheel Remote
+  description: >
+    Scrollwheel-Button.
+    Multi-Press, Hold und Scroll werden ausschließlich über frei definierbare Aktionen abgebildet.
+    Der breite Druck-Trigger stellt sicher, dass gleiche event_type-Werte mehrfach hintereinander erkannt werden.
+  domain: automation
+
+  input:
+    input_settings:
+      name: "Input Seeting"
+      icon: mdi:current-ac
+      collapsed: true
+
+        input:
+          # =======================
+          # INPUTS (einmalig)
+          # =======================
+          
+        
+          scroll_plus_sensor:
+            name: Mode 1 Scroll right Sensor (Sensor 1)
+            selector:
+              entity:
+                domain: sensor
