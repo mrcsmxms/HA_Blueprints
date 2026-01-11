@@ -1,57 +1,87 @@
-blueprint:
-  name: IKEA Bilresa Scroll Wheel Remote
-  domain: automation
+input:
+  mode_sensors_events:
+    name: "Sensoren & Events"
+    icon: mdi:remote
+    collapsed: true
+    input:
 
-  input:
-    mode_sensors_events:
-      name: "Sensoren & Events"
-      icon: mdi:remote
-      collapsed: true
-      input:
-        button_event_entity:
-          name: Mode 1 Button Event Entity (Event Button 3)
-          default: ""
-          selector:
-            entity:
-              filter:
-                domain: event
+      # Sensor 1
+      scroll_plus_sensor:
+        name: Sensor 1 – Mode 1 Scroll right
+        default: ""
+        selector:
+          entity:
+            filter:
+              domain: sensor
 
-        scroll_plus_sensor:
-          name: Mode 1 Scroll right Sensor (Sensor 1)
-          default: ""
-          selector:
-            entity:
-              filter:
-                domain: sensor
+      # Sensor 2
+      scroll_minus_sensor:
+        name: Sensor 2 – Mode 1 Scroll left
+        default: ""
+        selector:
+          entity:
+            filter:
+              domain: sensor
 
-        scroll_minus_sensor:
-          name: Mode 1 Scroll left Sensor (Sensor 2)
-          default: ""
-          selector:
-            entity:
-              filter:
-                domain: sensor
+      # Event 3
+      button_event_entity:
+        name: Event 3 – Mode 1 Button
+        default: ""
+        selector:
+          entity:
+            filter:
+              domain: event
 
-        button_event_entity_mode2:
-          name: Mode 2 Button Event Entity (Event Button 6)
-          default: ""
-          selector:
-            entity:
-              filter:
-                domain: event
+      # Sensor 4
+      scroll_plus_sensor_mode2:
+        name: Sensor 4 – Mode 2 Scroll right
+        default: ""
+        selector:
+          entity:
+            filter:
+              domain: sensor
 
-        scroll_plus_sensor_mode2:
-          name: Mode 2 Scroll right Sensor (Sensor 4)
-          default: ""
-          selector:
-            entity:
-              filter:
-                domain: sensor
+      # Sensor 5
+      scroll_minus_sensor_mode2:
+        name: Sensor 5 – Mode 2 Scroll left
+        default: ""
+        selector:
+          entity:
+            filter:
+              domain: sensor
 
-        scroll_minus_sensor_mode2:
-          name: Mode 2 Scroll left Sensor (Sensor 5)
-          default: ""
-          selector:
-            entity:
-              filter:
-                domain: sensor
+      # Event 6
+      button_event_entity_mode2:
+        name: Event 6 – Mode 2 Button
+        default: ""
+        selector:
+          entity:
+            filter:
+              domain: event
+
+      # Sensor 7
+      scroll_plus_sensor_mode3:
+        name: Sensor 7 – Mode 3 Scroll right
+        default: ""
+        selector:
+          entity:
+            filter:
+              domain: sensor
+
+      # Sensor 8
+      scroll_minus_sensor_mode3:
+        name: Sensor 8 – Mode 3 Scroll left
+        default: ""
+        selector:
+          entity:
+            filter:
+              domain: sensor
+
+      # Event 9
+      button_event_entity_mode3:
+        name: Event 9 – Mode 3 Button
+        default: ""
+        selector:
+          entity:
+            filter:
+              domain: event
