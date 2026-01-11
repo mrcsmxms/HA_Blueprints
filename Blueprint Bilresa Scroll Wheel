@@ -7,9 +7,15 @@ blueprint:
   domain: automation
 
   input:
-    # -----------------------
-    # MODE 1
-    # -----------------------
+    # =======================
+    # INPUTS (einmalig)
+    # =======================
+    button_event_entity:
+      name: Mode 1 Button Event Entity (Event Button 3)
+      selector:
+        entity:
+          domain: event
+
     scroll_plus_sensor:
       name: Mode 1 Scroll right Sensor (Sensor 1)
       selector:
@@ -22,12 +28,27 @@ blueprint:
         entity:
           domain: sensor
 
-    button_event_entity:
-      name: Mode 1 Button Event Entity (Event Button 3)
+    button_event_entity_mode2:
+      name: Mode 2 Button Event Entity (Event Button 6)
       selector:
         entity:
           domain: event
 
+    scroll_plus_sensor_mode2:
+      name: Mode 2 Scroll right Sensor (Sensor 4)
+      selector:
+        entity:
+          domain: sensor
+
+    scroll_minus_sensor_mode2:
+      name: Mode 2 Scroll left Sensor (Sensor 5)
+      selector:
+        entity:
+          domain: sensor
+
+    # =======================
+    # ACTIONS (häufiger angepasst)
+    # =======================
     multi_press_1_action:
       name: Mode 1 – press once
       default: []
@@ -63,27 +84,6 @@ blueprint:
       default: []
       selector:
         action:
-
-    # -----------------------
-    # MODE 2 (NEU)
-    # -----------------------
-    scroll_plus_sensor_mode2:
-      name: Mode 2 Scroll right Sensor (Sensor 4)
-      selector:
-        entity:
-          domain: sensor
-
-    scroll_minus_sensor_mode2:
-      name: Mode 2 Scroll left Sensor (Sensor 5)
-      selector:
-        entity:
-          domain: sensor
-
-    button_event_entity_mode2:
-      name: Mode 2 Button Event Entity (Event Button 6)
-      selector:
-        entity:
-          domain: event
 
     multi_press_1_action_mode2:
       name: Mode 2 – press once
@@ -155,7 +155,7 @@ trigger:
     id: "1 scroll -"
 
   # =======================
-  # MODE 2 (NEU)
+  # MODE 2
   # =======================
   - platform: state
     entity_id: !input button_event_entity_mode2
@@ -226,7 +226,7 @@ action:
         sequence: !input scroll_minus_action
 
       # =======================
-      # MODE 2 (NEU)
+      # MODE 2
       # =======================
       - conditions:
           - condition: trigger
