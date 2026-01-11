@@ -8,55 +8,55 @@ blueprint:
 
   input:
     button_event_entity:
-      name: Button Event Entity (Taste 1)
+      name: Button Event Entity (Button 1)
       selector:
         entity:
           domain: event
 
     scroll_plus_sensor:
-      name: Scroll + Sensor (Taste 1)
+      name: Scroll + Sensor (Button 1)
       selector:
         entity:
           domain: sensor
 
     scroll_minus_sensor:
-      name: Scroll - Sensor (Taste 1)
+      name: Scroll - Sensor (Button 1)
       selector:
         entity:
           domain: sensor
 
     multi_press_1_action:
-      name: Aktion bei einmal drücken
+      name: press once
       default: []
       selector:
         action:
 
     multi_press_2_action:
-      name: Aktion bei multi_press_2
+      name: press twice
       default: []
       selector:
         action:
 
     long_press_action:
-      name: Aktion bei long_press (gedrückt halten)
+      name: long hold
       default: []
       selector:
         action:
 
     long_release_action:
-      name: Aktion bei long_release (loslassen)
+      name: release after hold
       default: []
       selector:
         action:
 
     scroll_plus_action:
-      name: Aktion bei Scroll +
+      name: scroll right
       default: []
       selector:
         action:
 
     scroll_minus_action:
-      name: Aktion bei Scroll -
+      name: scroll left
       default: []
       selector:
         action:
