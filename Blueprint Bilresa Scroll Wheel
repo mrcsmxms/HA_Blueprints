@@ -8,19 +8,19 @@ blueprint:
 
   input:
     button_event_entity:
-      name: Button Event Entity (Taste 1)
+      name: Button Event Entity (Button 1)
       selector:
         entity:
           domain: event
 
     scroll_plus_sensor:
-      name: Scroll + Sensor (Taste 1)
+      name: Scroll + Sensor (Button 1)
       selector:
         entity:
           domain: sensor
 
     scroll_minus_sensor:
-      name: Scroll - Sensor (Taste 1)
+      name: Scroll - Sensor (Button 1)
       selector:
         entity:
           domain: sensor
@@ -104,7 +104,7 @@ action:
           - choose:
               - conditions:
                   - condition: template
-                    value_template: "{{ et == 'multi_press_1' }}"
+                    value_template: "{{ et == 'multi_press_66' }}"
                 sequence: !input multi_press_1_action
 
               - conditions:
