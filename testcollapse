@@ -1,25 +1,149 @@
 blueprint:
-  name: IKEA Bilresa Scroll Wheel Remote
+  name: Appliance Notifications & Actions
   description: >
-    Scrollwheel-Button.
-    Multi-Press, Hold und Scroll werden ausschließlich über frei definierbare Aktionen abgebildet.
-    Der breite Druck-Trigger stellt sicher, dass gleiche event_type-Werte mehrfach hintereinander erkannt werden.
+    # 📳 Appliance Notifications & Actions
+    
+    **Version: 3.9**
+    🤔 Watts your appliance up to, you're always in the know from start to finish! 🛎️🔌💸
+    **If you like my blueprints, and would like to show your support or just say thank you?** [Click Here](https://www.paypal.com/donate/?hosted_button_id=WAZS3QSDTPGA8) 🙂
+    <details>
+    <summary><b>The Automation Process:</b> 👈</summary>
+      - **Appliance Trigger:**
+          - Enter the power sensor entity that measures the live current draw of the appliance. Common devices with these sensors include smart plugs, energy meters, etc.
+          - The automation is triggered when the appliance's current draw exceeds a set wattage.
+          - The automation ends when the appliance's current draw falls below a set value.
+      - **Notification Options:**
+          - Send notification messages to one or multiple devices when the appliance starts, finishes or the watchdog is triggered.
+          - Your end message can also include estimates of total power consumption and cost.
+          - Include duration tracking in your end message to track the appliance's operational time for the task or cycle.
+          - Opt to sends a repeated notifications to remind you when the appliance cycle is complete.
+          - Limit when notifications can be sent by using Notify Time Restrictions - helpful for avoiding alerts while you're asleep.
+          - Notifications are compatible with both Apple iOS and Android devices, ensuring universal accessibility.
+      - **Run Status:**
+          - Display your appliance's run status on your dashboard.
+      - **Notify Time Restrictions:**
+          - Restrict notifications to the specified start and end times on the selected days. Notifications outside this time range will be skipped.
+      - **Energy Tracking:**
+          - Use energy tracking to estimate the total energy usage (kWh) for each completed cycle. You can also choose to include the estimated cost of that cycle in the end notification.
+          - Or simply update the start and end helpers without including any energy information in the end notification - useful for your own custom actions or other Home Assistant logic.
+          
+          ⚠️ **Disclaimer** - These values are estimates and should only be used as a guide. Please avoid relying solely on these estimates for accuracy and use them at your own risk. We cannot be held responsible for any inaccuracies or resulting losses, damages, inconvenience, or anything else that may occur.
+      - **Time Tracking:**
+          - Runtime Tracking - Records the total runtime of your appliance by updating a text helper each time it completes a full cycle.
+          - Duration Tracking - Tracks how long the appliance was running during each individual cycle and includes this duration in the end notification message.
+      - **Cycle Counter:**
+          - Use the cycle counter to track the total number of cycles completed by your appliance. You can also choose to include this information in your end message.
+      - **Service Reminders:**
+          - Service reminders help you track appliance usage and perform timely maintenance.
+          - Cycle-Based Reminder - Notifies you when a service is due based on the number of cycles completed.
+          - Time-Based Reminder - Notifies you when a service is due based on the total time the appliance has been in use since the last service.
+      - **Watchdog:**
+          - The watchdog option monitors an appliance cycle completion.
+          - It sends a notification if a cycle completion fails within the specified time frame.
+      - **Device Tracker:**
+          - You can choose to use the device tracker for Start, End, and Watchdog notifications.
+          - When enabled, only selected devices currently inside the chosen zone will receive those notifications.
+      - **Custom Actions:**
+          - Tailor custom actions to suit your preferences and needs, enhancing the automation's functionality.
+          - Configure actions such as triggering announcements on platforms like The Voice (HA), Google, Alexa, etc., to keep you informed about appliance events.
+      - **Custom Conditions:**
+          - Enter any custom conditions to further customize the automation process.
+    </details>
+    Need help? 
+    - FAQ: [Click Here](https://community.home-assistant.io/t/650166/2)
+    - Community Support Including Updates: [Click Here](https://community.home-assistant.io/t/650166)
+    Required = *
   domain: automation
-
   input:
-    input_settings:
-      name: "Input Seeting"
+    appliance_power_settings:
+      name: "Power Settings *"
       icon: mdi:current-ac
       collapsed: true
-
-        input:
-          # =======================
-          # INPUTS (einmalig)
-          # =======================
-          
-        
-          scroll_plus_sensor:
-            name: Mode 1 Scroll right Sensor (Sensor 1)
-            selector:
-              entity:
+      input:
+        power_sensor:
+          name: Power Sensor *
+          description: >
+            Please enter the power sensor entity that measures the live current draw of the appliance.
+            Common devices that have these sensors include smart plugs.
+            This sensor is essential for triggering the automation when the appliance starts and when it finishes.
+          default: []
+          selector:
+            entity:
+              filter:
                 domain: sensor
+        start_appliance_power:
+          name: Start - Appliance Power Setpoint
+          description: >
+            Specify the threshold that the power must exceed to indicate the appliance has started its cycle.
+            The power must transition from below to above this setpoint.
+          default: 10
+          selector:
+            number:
+              min: 1
+              max: 30
+              step: 1
+              unit_of_measurement: watts
+        start_time_delay:
+          name: Start - Power Time Delay
+          description: >
+            Specify the duration for which the power must remain above the threshold to indicate the appliance has started its cycle.
+            The power must remain above its setpoint for the specified time delay.
+            If the power falls below the setpoint again within this time frame, it will not trigger.
+            This will help prevent a false trigger.
+          default: 1
+          selector:
+            number:
+              min: 0.25
+              max: 5
+              step: 0.25
+              unit_of_measurement: minutes
+        running_dead_zone:
+          name: Running - Dead Zone
+          description: >
+            After the appliance starts, implementing a dead zone can prevent false end triggers,
+            especially if the power briefly dips below the appliance's end setpoint during the cycle after startup.
+            Setting the running dead zone beyond this point ensures a reliable conclusion by preventing a premature end trigger.
+            Additionally, the option to use 'End - Repeat Count' provides a similar functionality without being subjected to any specific time frame.
+            You can choose to use both the 'Running - Dead Zone' and 'End - Repeat Count,' with the 'End - Repeat Count' occurring after the 'Running - Dead Zone'.
+          default: 0
+          selector:
+            number:
+              min: 0
+              max: 120
+              step: 1
+              unit_of_measurement: minutes
+        end_appliance_power:
+          name: End - Appliance Power Setpoint
+          description: >
+            Specify the threshold that the power must stay below to indicate the appliance has finished its cycle.
+            The power must transition from above to below this setpoint.
+          default: 5
+          selector:
+            number:
+              min: 1
+              max: 30
+              step: 1
+              unit_of_measurement: watts
+        end_time_delay:
+          name: End - Power Time Delay
+          description: >
+            Specify the duration for which the power must remain below the threshold to indicate the appliance has finished its cycle.
+            The power must remain below its setpoint for the specified time delay.
+            If the power exceeds the setpoint again within this time frame, it will not trigger.
+          default: 1
+          selector:
+            number:
+              min: 0.25
+              max: 5
+              step: 0.25
+              unit_of_measurement: minutes
+        end_repeat_count:
+          name: End - Repeat Count
+          description: >
+            The number of times the 'End - Appliance Power Setpoint + End - Power Time Delay' condition should be met before triggering the end of the cycle.
+          default: 1
+          selector:
+            number:
+              min: 1
+              max: 10
+              mode: slider
