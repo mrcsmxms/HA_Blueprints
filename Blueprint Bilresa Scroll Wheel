@@ -1,5 +1,5 @@
 blueprint:
-  name: Bilresa Scroll Wheel Remote
+  name: Scrollwheel – Taste 1 (Actions only)
   description: >
     Taste 1 eines Scrollwheel-Buttons.
     Multi-Press, Hold und Scroll werden ausschließlich über frei definierbare Aktionen abgebildet.
@@ -8,55 +8,55 @@ blueprint:
 
   input:
     button_event_entity:
-      name: Button Event Entity (Button 1)
+      name: Button Event Entity (Taste 1)
       selector:
         entity:
           domain: event
 
     scroll_plus_sensor:
-      name: Scroll + Sensor (Button 1)
+      name: Scroll + Sensor (Taste 1)
       selector:
         entity:
           domain: sensor
 
     scroll_minus_sensor:
-      name: Scroll - Sensor (Button 1)
+      name: Scroll - Sensor (Taste 1)
       selector:
         entity:
           domain: sensor
 
     multi_press_1_action:
-      name: Aktion bei 1 Mal drücken
+      name: Aktion bei einmal drücken
       default: []
       selector:
         action:
 
     multi_press_2_action:
-      name: Aktion bei 2 Mal drücken
+      name: Aktion bei multi_press_2
       default: []
       selector:
         action:
 
     long_press_action:
-      name: Aktion bei Gedrückt halten
+      name: Aktion bei long_press (gedrückt halten)
       default: []
       selector:
         action:
 
     long_release_action:
-      name: Aktion bei Gedrückt halten loslassen
+      name: Aktion bei long_release (loslassen)
       default: []
       selector:
         action:
 
     scroll_plus_action:
-      name: Aktion bei Scroll right
+      name: Aktion bei Scroll +
       default: []
       selector:
         action:
 
     scroll_minus_action:
-      name: Aktion bei Scroll left
+      name: Aktion bei Scroll -
       default: []
       selector:
         action:
@@ -104,7 +104,7 @@ action:
           - choose:
               - conditions:
                   - condition: template
-                    value_template: "{{ et == 'multi_press_66' }}"
+                    value_template: "{{ et == 'multi_press_1' }}"
                 sequence: !input multi_press_1_action
 
               - conditions:
