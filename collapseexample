@@ -1,9 +1,6 @@
 blueprint:
   name: IKEA Bilresa Scroll Wheel Remote
-  description: >
-    ...
   domain: automation
-  min_version: 2024.6.0
 
   input:
     mode_sensors_events:
@@ -13,7 +10,7 @@ blueprint:
       input:
         button_event_entity:
           name: Mode 1 Button Event Entity (Event Button 3)
-          default: []
+          default: ""
           selector:
             entity:
               filter:
@@ -21,7 +18,7 @@ blueprint:
 
         scroll_plus_sensor:
           name: Mode 1 Scroll right Sensor (Sensor 1)
-          default: []
+          default: ""
           selector:
             entity:
               filter:
@@ -29,7 +26,7 @@ blueprint:
 
         scroll_minus_sensor:
           name: Mode 1 Scroll left Sensor (Sensor 2)
-          default: []
+          default: ""
           selector:
             entity:
               filter:
@@ -37,7 +34,7 @@ blueprint:
 
         button_event_entity_mode2:
           name: Mode 2 Button Event Entity (Event Button 6)
-          default: []
+          default: ""
           selector:
             entity:
               filter:
@@ -45,7 +42,7 @@ blueprint:
 
         scroll_plus_sensor_mode2:
           name: Mode 2 Scroll right Sensor (Sensor 4)
-          default: []
+          default: ""
           selector:
             entity:
               filter:
@@ -53,7 +50,7 @@ blueprint:
 
         scroll_minus_sensor_mode2:
           name: Mode 2 Scroll left Sensor (Sensor 5)
-          default: []
+          default: ""
           selector:
             entity:
               filter:
