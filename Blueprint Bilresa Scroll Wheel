@@ -7,7 +7,7 @@ blueprint:
   domain: automation
 
   input:
-    Input_settings:
+    input_settings:
       name: "Input Seeting"
       icon: mdi:current-ac
       collapsed: true
