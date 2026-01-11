@@ -1,0 +1,84 @@
+trigger:
+  - platform: state
+    entity_id: !input button_event_entity
+    id: "1 Druck"
+
+  - platform: state
+    entity_id: !input button_event_entity
+    attribute: event_type
+    to: long_press
+    id: "1 gedrückt halten"
+
+  - platform: state
+    entity_id: !input button_event_entity
+    attribute: event_type
+    to: long_release
+    id: "1 gedrückt halten loslassen"
+
+  - platform: state
+    entity_id: !input scroll_plus_sensor
+    to: "1"
+    id: "1 scroll +"
+
+  - platform: state
+    entity_id: !input scroll_minus_sensor
+    to: "1"
+    id: "1 scroll -"
+
+action:
+  - variables:
+      et: "{{ trigger.to_state.attributes.event_type if trigger.to_state else none }}"
+      step: !input brightness_step
+  - choose:
+      - conditions:
+          - condition: trigger
+            id: "1 Druck"
+        sequence:
+          - if:
+              - condition: template
+                value_template: "{{ et == 'multi_press_1' }}"
+            then:
+              - service: light.toggle
+                target: !input target_single
+          - if:
+              - condition: template
+                value_template: "{{ et == 'multi_press_2' }}"
+            then:
+              - service: light.toggle
+                target: !input target_double
+
+      - conditions:
+          - condition: trigger
+            id: "1 gedrückt halten"
+        sequence:
+          # hold-start action(s)
+          - service: script.turn_on
+            target:
+              entity_id: !input hold_script
+
+      - conditions:
+          - condition: trigger
+            id: "1 gedrückt halten loslassen"
+        sequence:
+          # release action(s)
+          - service: script.turn_on
+            target:
+              entity_id: !input release_script
+
+      - conditions:
+          - condition: trigger
+            id: "1 scroll +"
+        sequence:
+          - service: light.turn_on
+            target: !input target_single
+            data:
+              brightness_step_pct: "{{ step }}"
+
+      - conditions:
+          - condition: trigger
+            id: "1 scroll -"
+        sequence:
+          - service: light.turn_on
+            target: !input target_single
+            data:
+              brightness_step_pct: "{{ 0 - step }}"
