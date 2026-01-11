@@ -1,87 +1,411 @@
-input:
-  mode_sensors_events:
-    name: "Sensoren & Events"
-    icon: mdi:remote
-    collapsed: true
-    input:
+blueprint:
+  name: IKEA Bilresa Scroll Wheel Remote
+  description: >
+    Multi-Press, Hold und Scroll werden ausschließlich über frei definierbare Aktionen abgebildet.
+    Der breite Druck-Trigger stellt sicher, dass gleiche event_type-Werte mehrfach hintereinander erkannt werden.
+  domain: automation
 
-      # Sensor 1
-      scroll_plus_sensor:
-        name: Sensor 1 – Mode 1 Scroll right
-        default: ""
-        selector:
-          entity:
-            filter:
-              domain: sensor
+  input:
+    mode_sensors_events:
+      name: "Sensoren & Events"
+      icon: mdi:remote
+      collapsed: true
+      input:
+        # Sensor 1
+        scroll_plus_sensor:
+          name: Sensor 1 – Mode 1 Scroll right
+          default: ""
+          selector:
+            entity:
+              filter:
+                domain: sensor
 
-      # Sensor 2
-      scroll_minus_sensor:
-        name: Sensor 2 – Mode 1 Scroll left
-        default: ""
-        selector:
-          entity:
-            filter:
-              domain: sensor
+        # Sensor 2
+        scroll_minus_sensor:
+          name: Sensor 2 – Mode 1 Scroll left
+          default: ""
+          selector:
+            entity:
+              filter:
+                domain: sensor
 
-      # Event 3
-      button_event_entity:
-        name: Event 3 – Mode 1 Button
-        default: ""
-        selector:
-          entity:
-            filter:
-              domain: event
+        # Event 3
+        button_event_entity:
+          name: Event 3 – Mode 1 Button
+          default: ""
+          selector:
+            entity:
+              filter:
+                domain: event
 
-      # Sensor 4
-      scroll_plus_sensor_mode2:
-        name: Sensor 4 – Mode 2 Scroll right
-        default: ""
-        selector:
-          entity:
-            filter:
-              domain: sensor
+        # Sensor 4
+        scroll_plus_sensor_mode2:
+          name: Sensor 4 – Mode 2 Scroll right
+          default: ""
+          selector:
+            entity:
+              filter:
+                domain: sensor
 
-      # Sensor 5
-      scroll_minus_sensor_mode2:
-        name: Sensor 5 – Mode 2 Scroll left
-        default: ""
-        selector:
-          entity:
-            filter:
-              domain: sensor
+        # Sensor 5
+        scroll_minus_sensor_mode2:
+          name: Sensor 5 – Mode 2 Scroll left
+          default: ""
+          selector:
+            entity:
+              filter:
+                domain: sensor
 
-      # Event 6
-      button_event_entity_mode2:
-        name: Event 6 – Mode 2 Button
-        default: ""
-        selector:
-          entity:
-            filter:
-              domain: event
+        # Event 6
+        button_event_entity_mode2:
+          name: Event 6 – Mode 2 Button
+          default: ""
+          selector:
+            entity:
+              filter:
+                domain: event
 
-      # Sensor 7
-      scroll_plus_sensor_mode3:
-        name: Sensor 7 – Mode 3 Scroll right
-        default: ""
-        selector:
-          entity:
-            filter:
-              domain: sensor
+        # Sensor 7
+        scroll_plus_sensor_mode3:
+          name: Sensor 7 – Mode 3 Scroll right
+          default: ""
+          selector:
+            entity:
+              filter:
+                domain: sensor
 
-      # Sensor 8
-      scroll_minus_sensor_mode3:
-        name: Sensor 8 – Mode 3 Scroll left
-        default: ""
-        selector:
-          entity:
-            filter:
-              domain: sensor
+        # Sensor 8
+        scroll_minus_sensor_mode3:
+          name: Sensor 8 – Mode 3 Scroll left
+          default: ""
+          selector:
+            entity:
+              filter:
+                domain: sensor
 
-      # Event 9
-      button_event_entity_mode3:
-        name: Event 9 – Mode 3 Button
-        default: ""
-        selector:
-          entity:
-            filter:
-              domain: event
+        # Event 9
+        button_event_entity_mode3:
+          name: Event 9 – Mode 3 Button
+          default: ""
+          selector:
+            entity:
+              filter:
+                domain: event
+
+    # =======================
+    # ACTIONS (häufiger angepasst)
+    # =======================
+    multi_press_1_action:
+      name: Mode 1 – press once
+      default: []
+      selector:
+        action:
+
+    multi_press_2_action:
+      name: Mode 1 – press twice
+      default: []
+      selector:
+        action:
+
+    long_press_action:
+      name: Mode 1 – long hold
+      default: []
+      selector:
+        action:
+
+    long_release_action:
+      name: Mode 1 – release after hold
+      default: []
+      selector:
+        action:
+
+    scroll_plus_action:
+      name: Mode 1 – scroll right
+      default: []
+      selector:
+        action:
+
+    scroll_minus_action:
+      name: Mode 1 – scroll left
+      default: []
+      selector:
+        action:
+
+    multi_press_1_action_mode2:
+      name: Mode 2 – press once
+      default: []
+      selector:
+        action:
+
+    multi_press_2_action_mode2:
+      name: Mode 2 – press twice
+      default: []
+      selector:
+        action:
+
+    long_press_action_mode2:
+      name: Mode 2 – long hold
+      default: []
+      selector:
+        action:
+
+    long_release_action_mode2:
+      name: Mode 2 – release after hold
+      default: []
+      selector:
+        action:
+
+    scroll_plus_action_mode2:
+      name: Mode 2 – scroll right
+      default: []
+      selector:
+        action:
+
+    scroll_minus_action_mode2:
+      name: Mode 2 – scroll left
+      default: []
+      selector:
+        action:
+
+    multi_press_1_action_mode3:
+      name: Mode 3 – press once
+      default: []
+      selector:
+        action:
+
+    multi_press_2_action_mode3:
+      name: Mode 3 – press twice
+      default: []
+      selector:
+        action:
+
+    long_press_action_mode3:
+      name: Mode 3 – long hold
+      default: []
+      selector:
+        action:
+
+    long_release_action_mode3:
+      name: Mode 3 – release after hold
+      default: []
+      selector:
+        action:
+
+    scroll_plus_action_mode3:
+      name: Mode 3 – scroll right
+      default: []
+      selector:
+        action:
+
+    scroll_minus_action_mode3:
+      name: Mode 3 – scroll left
+      default: []
+      selector:
+        action:
+
+mode: parallel
+max: 20
+
+trigger:
+  # =======================
+  # MODE 1
+  # =======================
+  - platform: state
+    entity_id: !input button_event_entity
+    id: "1 Druck"
+
+  - platform: state
+    entity_id: !input button_event_entity
+    attribute: event_type
+    to: long_press
+    id: "1 gedrückt halten"
+
+  - platform: state
+    entity_id: !input button_event_entity
+    attribute: event_type
+    to: long_release
+    id: "1 gedrückt halten loslassen"
+
+  - platform: state
+    entity_id: !input scroll_plus_sensor
+    to: "1"
+    id: "1 scroll +"
+
+  - platform: state
+    entity_id: !input scroll_minus_sensor
+    to: "1"
+    id: "1 scroll -"
+
+  # =======================
+  # MODE 2
+  # =======================
+  - platform: state
+    entity_id: !input button_event_entity_mode2
+    id: "2 Druck"
+
+  - platform: state
+    entity_id: !input button_event_entity_mode2
+    attribute: event_type
+    to: long_press
+    id: "2 gedrückt halten"
+
+  - platform: state
+    entity_id: !input button_event_entity_mode2
+    attribute: event_type
+    to: long_release
+    id: "2 gedrückt halten loslassen"
+
+  - platform: state
+    entity_id: !input scroll_plus_sensor_mode2
+    to: "1"
+    id: "2 scroll +"
+
+  - platform: state
+    entity_id: !input scroll_minus_sensor_mode2
+    to: "1"
+    id: "2 scroll -"
+
+  # =======================
+  # MODE 3
+  # =======================
+  - platform: state
+    entity_id: !input button_event_entity_mode3
+    id: "3 Druck"
+
+  - platform: state
+    entity_id: !input button_event_entity_mode3
+    attribute: event_type
+    to: long_press
+    id: "3 gedrückt halten"
+
+  - platform: state
+    entity_id: !input button_event_entity_mode3
+    attribute: event_type
+    to: long_release
+    id: "3 gedrückt halten loslassen"
+
+  - platform: state
+    entity_id: !input scroll_plus_sensor_mode3
+    to: "1"
+    id: "3 scroll +"
+
+  - platform: state
+    entity_id: !input scroll_minus_sensor_mode3
+    to: "1"
+    id: "3 scroll -"
+
+action:
+  - variables:
+      et: "{{ trigger.to_state.attributes.event_type if trigger.to_state else none }}"
+
+  - choose:
+      # =======================
+      # MODE 1
+      # =======================
+      - conditions:
+          - condition: trigger
+            id: "1 Druck"
+        sequence:
+          - choose:
+              - conditions:
+                  - condition: template
+                    value_template: "{{ et == 'multi_press_1' }}"
+                sequence: !input multi_press_1_action
+              - conditions:
+                  - condition: template
+                    value_template: "{{ et == 'multi_press_2' }}"
+                sequence: !input multi_press_2_action
+
+      - conditions:
+          - condition: trigger
+            id: "1 gedrückt halten"
+        sequence: !input long_press_action
+
+      - conditions:
+          - condition: trigger
+            id: "1 gedrückt halten loslassen"
+        sequence: !input long_release_action
+
+      - conditions:
+          - condition: trigger
+            id: "1 scroll +"
+        sequence: !input scroll_plus_action
+
+      - conditions:
+          - condition: trigger
+            id: "1 scroll -"
+        sequence: !input scroll_minus_action
+
+      # =======================
+      # MODE 2
+      # =======================
+      - conditions:
+          - condition: trigger
+            id: "2 Druck"
+        sequence:
+          - choose:
+              - conditions:
+                  - condition: template
+                    value_template: "{{ et == 'multi_press_1' }}"
+                sequence: !input multi_press_1_action_mode2
+              - conditions:
+                  - condition: template
+                    value_template: "{{ et == 'multi_press_2' }}"
+                sequence: !input multi_press_2_action_mode2
+
+      - conditions:
+          - condition: trigger
+            id: "2 gedrückt halten"
+        sequence: !input long_press_action_mode2
+
+      - conditions:
+          - condition: trigger
+            id: "2 gedrückt halten loslassen"
+        sequence: !input long_release_action_mode2
+
+      - conditions:
+          - condition: trigger
+            id: "2 scroll +"
+        sequence: !input scroll_plus_action_mode2
+
+      - conditions:
+          - condition: trigger
+            id: "2 scroll -"
+        sequence: !input scroll_minus_action_mode2
+
+      # =======================
+      # MODE 3
+      # =======================
+      - conditions:
+          - condition: trigger
+            id: "3 Druck"
+        sequence:
+          - choose:
+              - conditions:
+                  - condition: template
+                    value_template: "{{ et == 'multi_press_1' }}"
+                sequence: !input multi_press_1_action_mode3
+              - conditions:
+                  - condition: template
+                    value_template: "{{ et == 'multi_press_2' }}"
+                sequence: !input multi_press_2_action_mode3
+
+      - conditions:
+          - condition: trigger
+            id: "3 gedrückt halten"
+        sequence: !input long_press_action_mode3
+
+      - conditions:
+          - condition: trigger
+            id: "3 gedrückt halten loslassen"
+        sequence: !input long_release_action_mode3
+
+      - conditions:
+          - condition: trigger
+            id: "3 scroll +"
+        sequence: !input scroll_plus_action_mode3
+
+      - conditions:
+          - condition: trigger
+            id: "3 scroll -"
+        sequence: !input scroll_minus_action_mode3
