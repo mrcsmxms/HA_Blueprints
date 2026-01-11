@@ -1,5 +1,5 @@
 blueprint:
-  name: Scrollwheel – Taste 1 (Actions only)
+  name: Bilresa Scroll Wheel Remote
   description: >
     Taste 1 eines Scrollwheel-Buttons.
     Multi-Press, Hold und Scroll werden ausschließlich über frei definierbare Aktionen abgebildet.
