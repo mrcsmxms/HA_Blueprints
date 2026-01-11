@@ -1,84 +1,59 @@
-trigger:
-  - platform: state
-    entity_id: !input button_event_entity
-    id: "1 Druck"
+blueprint:
+  name: Scrollwheel – Taste 1 (multi-press + hold + scroll)
+  description: >
+    Robust gegen gleiche event_type-Wiederholungen (z.B. multi_press_1 zweimal hintereinander),
+    da "Druck" auf jedes State-Update triggert und erst in der Action nach event_type gefiltert wird.
+  domain: automation
 
-  - platform: state
-    entity_id: !input button_event_entity
-    attribute: event_type
-    to: long_press
-    id: "1 gedrückt halten"
+  input:
+    button_event_entity:
+      name: Button Event Entity (Taste 1)
+      selector:
+        entity:
+          domain: event
 
-  - platform: state
-    entity_id: !input button_event_entity
-    attribute: event_type
-    to: long_release
-    id: "1 gedrückt halten loslassen"
+    scroll_plus_sensor:
+      name: Scroll + Sensor (Taste 1)
+      selector:
+        entity:
+          domain: sensor
 
-  - platform: state
-    entity_id: !input scroll_plus_sensor
-    to: "1"
-    id: "1 scroll +"
+    scroll_minus_sensor:
+      name: Scroll - Sensor (Taste 1)
+      selector:
+        entity:
+          domain: sensor
 
-  - platform: state
-    entity_id: !input scroll_minus_sensor
-    to: "1"
-    id: "1 scroll -"
+    target_single:
+      name: Target bei multi_press_1
+      selector:
+        target:
+          entity:
+            domain: light
 
-action:
-  - variables:
-      et: "{{ trigger.to_state.attributes.event_type if trigger.to_state else none }}"
-      step: !input brightness_step
-  - choose:
-      - conditions:
-          - condition: trigger
-            id: "1 Druck"
-        sequence:
-          - if:
-              - condition: template
-                value_template: "{{ et == 'multi_press_1' }}"
-            then:
-              - service: light.toggle
-                target: !input target_single
-          - if:
-              - condition: template
-                value_template: "{{ et == 'multi_press_2' }}"
-            then:
-              - service: light.toggle
-                target: !input target_double
+    target_double:
+      name: Target bei multi_press_2
+      selector:
+        target:
+          entity:
+            domain: light
 
-      - conditions:
-          - condition: trigger
-            id: "1 gedrückt halten"
-        sequence:
-          # hold-start action(s)
-          - service: script.turn_on
-            target:
-              entity_id: !input hold_script
+    brightness_step:
+      name: Helligkeitsschritt (%)
+      default: 15
+      selector:
+        number:
+          min: 1
+          max: 100
+          mode: slider
+          unit_of_measurement: "%"
 
-      - conditions:
-          - condition: trigger
-            id: "1 gedrückt halten loslassen"
-        sequence:
-          # release action(s)
-          - service: script.turn_on
-            target:
-              entity_id: !input release_script
+    hold_action:
+      name: Aktion bei long_press (gedrückt halten)
+      default: []
+      selector:
+        action: {}
 
-      - conditions:
-          - condition: trigger
-            id: "1 scroll +"
-        sequence:
-          - service: light.turn_on
-            target: !input target_single
-            data:
-              brightness_step_pct: "{{ step }}"
-
-      - conditions:
-          - condition: trigger
-            id: "1 scroll -"
-        sequence:
-          - service: light.turn_on
-            target: !input target_single
-            data:
-              brightness_step_pct: "{{ 0 - step }}"
+    release_action:
+      name: Aktion bei long_release (loslassen)
+      default: []
