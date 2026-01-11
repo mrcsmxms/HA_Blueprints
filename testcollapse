@@ -63,45 +63,95 @@ blueprint:
 
   domain: automation
   input:
-    input_settings:
+    appliance_power_settings:
       name: "Power Settings *"
       icon: mdi:current-ac
       collapsed: true
       input:
-        scroll_plus_sensor:
-            name: Mode 1 Scroll right Sensor (Sensor 1)
-            selector:
-              entity:
+        power1_sensor:
+          name: Power1 Sensor *
+          description: >
+            Please enter the power sensor entity that measures the live current draw of the appliance.
+            Common devices that have these sensors include smart plugs.
+            This sensor is essential for triggering the automation when the appliance starts and when it finishes.
+          default: []
+          selector:
+            entity:
+              filter:
                 domain: sensor
-        
-          scroll_minus_sensor:
-            name: Mode 1 Scroll left Sensor (Sensor 2)
-            selector:
-              entity:
-                domain: sensor
-        
-          
-
-          button_event_entity:
-            name: Mode 1 Button Event Entity (Event Button 3)
-            selector:
-              entity:
-                domain: event
-
-          scroll_plus_sensor_mode2:
-            name: Mode 2 Scroll right Sensor (Sensor 4)
-            selector:
-              entity:
-                domain: sensor
-        
-          scroll_minus_sensor_mode2:
-            name: Mode 2 Scroll left Sensor (Sensor 5)
-            selector:
-              entity:
-                domain: sensor
-        
-          button_event_entity_mode2:
-            name: Mode 2 Button Event Entity (Event Button 6)
-            selector:
-              entity:
-                domain: event
+        start_appliance_power:
+          name: Start - Appliance Power Setpoint
+          description: >
+            Specify the threshold that the power must exceed to indicate the appliance has started its cycle.
+            The power must transition from below to above this setpoint.
+          default: 10
+          selector:
+            number:
+              min: 1
+              max: 30
+              step: 1
+              unit_of_measurement: watts
+        start_time_delay:
+          name: Start - Power Time Delay
+          description: >
+            Specify the duration for which the power must remain above the threshold to indicate the appliance has started its cycle.
+            The power must remain above its setpoint for the specified time delay.
+            If the power falls below the setpoint again within this time frame, it will not trigger.
+            This will help prevent a false trigger.
+          default: 1
+          selector:
+            number:
+              min: 0.25
+              max: 5
+              step: 0.25
+              unit_of_measurement: minutes
+        running_dead_zone:
+          name: Running - Dead Zone
+          description: >
+            After the appliance starts, implementing a dead zone can prevent false end triggers,
+            especially if the power briefly dips below the appliance's end setpoint during the cycle after startup.
+            Setting the running dead zone beyond this point ensures a reliable conclusion by preventing a premature end trigger.
+            Additionally, the option to use 'End - Repeat Count' provides a similar functionality without being subjected to any specific time frame.
+            You can choose to use both the 'Running - Dead Zone' and 'End - Repeat Count,' with the 'End - Repeat Count' occurring after the 'Running - Dead Zone'.
+          default: 0
+          selector:
+            number:
+              min: 0
+              max: 120
+              step: 1
+              unit_of_measurement: minutes
+        end_appliance_power:
+          name: End - Appliance Power Setpoint
+          description: >
+            Specify the threshold that the power must stay below to indicate the appliance has finished its cycle.
+            The power must transition from above to below this setpoint.
+          default: 5
+          selector:
+            number:
+              min: 1
+              max: 30
+              step: 1
+              unit_of_measurement: watts
+        end_time_delay:
+          name: End - Power Time Delay
+          description: >
+            Specify the duration for which the power must remain below the threshold to indicate the appliance has finished its cycle.
+            The power must remain below its setpoint for the specified time delay.
+            If the power exceeds the setpoint again within this time frame, it will not trigger.
+          default: 1
+          selector:
+            number:
+              min: 0.25
+              max: 5
+              step: 0.25
+              unit_of_measurement: minutes
+        end_repeat_count:
+          name: End - Repeat Count
+          description: >
+            The number of times the 'End - Appliance Power Setpoint + End - Power Time Delay' condition should be met before triggering the end of the cycle.
+          default: 1
+          selector:
+            number:
+              min: 1
+              max: 10
+              mode: slider
