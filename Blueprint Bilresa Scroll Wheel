@@ -26,37 +26,37 @@ blueprint:
           domain: sensor
 
     multi_press_1_action:
-      name: Aktion bei multi_press_1
+      name: Aktion bei 1 Mal drücken
       default: []
       selector:
         action:
 
     multi_press_2_action:
-      name: Aktion bei multi_press_2
+      name: Aktion bei 2 Mal drücken
       default: []
       selector:
         action:
 
     long_press_action:
-      name: Aktion bei long_press (gedrückt halten)
+      name: Aktion bei Gedrückt halten
       default: []
       selector:
         action:
 
     long_release_action:
-      name: Aktion bei long_release (loslassen)
+      name: Aktion bei Gedrückt halten loslassen
       default: []
       selector:
         action:
 
     scroll_plus_action:
-      name: Aktion bei Scroll +
+      name: Aktion bei Scroll right
       default: []
       selector:
         action:
 
     scroll_minus_action:
-      name: Aktion bei Scroll -
+      name: Aktion bei Scroll left
       default: []
       selector:
         action:
