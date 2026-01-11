@@ -28,12 +28,6 @@ blueprint:
         entity:
           domain: sensor
 
-    button_event_entity_mode2:
-      name: Mode 2 Button Event Entity (Event Button 6)
-      selector:
-        entity:
-          domain: event
-
     scroll_plus_sensor_mode2:
       name: Mode 2 Scroll right Sensor (Sensor 4)
       selector:
@@ -45,6 +39,12 @@ blueprint:
       selector:
         entity:
           domain: sensor
+
+    button_event_entity_mode2:
+      name: Mode 2 Button Event Entity (Event Button 6)
+      selector:
+        entity:
+          domain: event
 
     # =======================
     # ACTIONS (häufiger angepasst)
