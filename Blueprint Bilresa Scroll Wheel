@@ -6,12 +6,6 @@ blueprint:
     Der breite Druck-Trigger stellt sicher, dass gleiche event_type-Werte mehrfach hintereinander erkannt werden.
   domain: automation
 
-  input:
-    input_settings:
-      name: "Input Seeting"
-      icon: mdi:current-ac
-      collapsed: true
-
         input:
           # =======================
           # INPUTS (einmalig)
