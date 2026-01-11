@@ -14,13 +14,13 @@ blueprint:
           domain: event
 
     scroll_plus_sensor:
-      name: Scroll + Sensor (Button 1)
+      name: Scroll right Sensor (Button 1)
       selector:
         entity:
           domain: sensor
 
     scroll_minus_sensor:
-      name: Scroll - Sensor (Button 1)
+      name: Scroll left Sensor (Button 1)
       selector:
         entity:
           domain: sensor
