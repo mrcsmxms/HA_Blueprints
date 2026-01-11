@@ -10,19 +10,19 @@ blueprint:
     
 
     scroll_plus_sensor:
-      name: Scroll right Sensor (Sensor 1)
+      name: Mode 1 Scroll right Sensor (Sensor 1)
       selector:
         entity:
           domain: sensor
 
     scroll_minus_sensor:
-      name: Scroll left Sensor (Sensor 2)
+      name: Mode 1 Scroll left Sensor (Sensor 2)
       selector:
         entity:
           domain: sensor
 
     button_event_entity:
-      name: Button Event Entity (Event Button 3)
+      name: Mode 1 Button Event Entity (Event Button 3)
       selector:
         entity:
           domain: event
