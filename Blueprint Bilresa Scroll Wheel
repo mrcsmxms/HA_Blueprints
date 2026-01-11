@@ -28,37 +28,37 @@ blueprint:
           domain: event
 
     multi_press_1_action:
-      name: press once
+      name: Mode 1 press once
       default: []
       selector:
         action:
 
     multi_press_2_action:
-      name: press twice
+      name: Mode 1 press twice
       default: []
       selector:
         action:
 
     long_press_action:
-      name: long hold
+      name: Mode 1 long hold
       default: []
       selector:
         action:
 
     long_release_action:
-      name: release after hold
+      name: Mode 1 release after hold
       default: []
       selector:
         action:
 
     scroll_plus_action:
-      name: scroll right
+      name: Mode 1 scroll right
       default: []
       selector:
         action:
 
     scroll_minus_action:
-      name: scroll left
+      name: Mode 1 scroll left
       default: []
       selector:
         action:
