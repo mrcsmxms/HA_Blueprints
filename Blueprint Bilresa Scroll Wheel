@@ -1,14 +1,15 @@
 blueprint:
   name: IKEA Bilresa Scroll Wheel Remote
   description: >
-    Taste 1 eines Scrollwheel-Buttons.
+    Scrollwheel-Button.
     Multi-Press, Hold und Scroll werden ausschließlich über frei definierbare Aktionen abgebildet.
     Der breite Druck-Trigger stellt sicher, dass gleiche event_type-Werte mehrfach hintereinander erkannt werden.
   domain: automation
 
   input:
-    
-
+    # -----------------------
+    # MODE 1
+    # -----------------------
     scroll_plus_sensor:
       name: Mode 1 Scroll right Sensor (Sensor 1)
       selector:
@@ -28,37 +29,94 @@ blueprint:
           domain: event
 
     multi_press_1_action:
-      name: Mode 1 press once
+      name: Mode 1 – press once
       default: []
       selector:
         action:
 
     multi_press_2_action:
-      name: Mode 1 press twice
+      name: Mode 1 – press twice
       default: []
       selector:
         action:
 
     long_press_action:
-      name: Mode 1 long hold
+      name: Mode 1 – long hold
       default: []
       selector:
         action:
 
     long_release_action:
-      name: Mode 1 release after hold
+      name: Mode 1 – release after hold
       default: []
       selector:
         action:
 
     scroll_plus_action:
-      name: Mode 1 scroll right
+      name: Mode 1 – scroll right
       default: []
       selector:
         action:
 
     scroll_minus_action:
-      name: Mode 1 scroll left
+      name: Mode 1 – scroll left
+      default: []
+      selector:
+        action:
+
+    # -----------------------
+    # MODE 2 (NEU)
+    # -----------------------
+    scroll_plus_sensor_mode2:
+      name: Mode 2 Scroll right Sensor (Sensor 4)
+      selector:
+        entity:
+          domain: sensor
+
+    scroll_minus_sensor_mode2:
+      name: Mode 2 Scroll left Sensor (Sensor 5)
+      selector:
+        entity:
+          domain: sensor
+
+    button_event_entity_mode2:
+      name: Mode 2 Button Event Entity (Event Button 6)
+      selector:
+        entity:
+          domain: event
+
+    multi_press_1_action_mode2:
+      name: Mode 2 – press once
+      default: []
+      selector:
+        action:
+
+    multi_press_2_action_mode2:
+      name: Mode 2 – press twice
+      default: []
+      selector:
+        action:
+
+    long_press_action_mode2:
+      name: Mode 2 – long hold
+      default: []
+      selector:
+        action:
+
+    long_release_action_mode2:
+      name: Mode 2 – release after hold
+      default: []
+      selector:
+        action:
+
+    scroll_plus_action_mode2:
+      name: Mode 2 – scroll right
+      default: []
+      selector:
+        action:
+
+    scroll_minus_action_mode2:
+      name: Mode 2 – scroll left
       default: []
       selector:
         action:
@@ -67,7 +125,9 @@ mode: parallel
 max: 20
 
 trigger:
-  # Breiter Trigger für Multi-Press (auch gleiche event_type-Werte hintereinander)
+  # =======================
+  # MODE 1
+  # =======================
   - platform: state
     entity_id: !input button_event_entity
     id: "1 Druck"
@@ -94,11 +154,43 @@ trigger:
     to: "1"
     id: "1 scroll -"
 
+  # =======================
+  # MODE 2 (NEU)
+  # =======================
+  - platform: state
+    entity_id: !input button_event_entity_mode2
+    id: "2 Druck"
+
+  - platform: state
+    entity_id: !input button_event_entity_mode2
+    attribute: event_type
+    to: long_press
+    id: "2 gedrückt halten"
+
+  - platform: state
+    entity_id: !input button_event_entity_mode2
+    attribute: event_type
+    to: long_release
+    id: "2 gedrückt halten loslassen"
+
+  - platform: state
+    entity_id: !input scroll_plus_sensor_mode2
+    to: "1"
+    id: "2 scroll +"
+
+  - platform: state
+    entity_id: !input scroll_minus_sensor_mode2
+    to: "1"
+    id: "2 scroll -"
+
 action:
   - variables:
       et: "{{ trigger.to_state.attributes.event_type if trigger.to_state else none }}"
 
   - choose:
+      # =======================
+      # MODE 1
+      # =======================
       - conditions:
           - condition: trigger
             id: "1 Druck"
@@ -108,7 +200,6 @@ action:
                   - condition: template
                     value_template: "{{ et == 'multi_press_1' }}"
                 sequence: !input multi_press_1_action
-
               - conditions:
                   - condition: template
                     value_template: "{{ et == 'multi_press_2' }}"
@@ -133,3 +224,40 @@ action:
           - condition: trigger
             id: "1 scroll -"
         sequence: !input scroll_minus_action
+
+      # =======================
+      # MODE 2 (NEU)
+      # =======================
+      - conditions:
+          - condition: trigger
+            id: "2 Druck"
+        sequence:
+          - choose:
+              - conditions:
+                  - condition: template
+                    value_template: "{{ et == 'multi_press_1' }}"
+                sequence: !input multi_press_1_action_mode2
+              - conditions:
+                  - condition: template
+                    value_template: "{{ et == 'multi_press_2' }}"
+                sequence: !input multi_press_2_action_mode2
+
+      - conditions:
+          - condition: trigger
+            id: "2 gedrückt halten"
+        sequence: !input long_press_action_mode2
+
+      - conditions:
+          - condition: trigger
+            id: "2 gedrückt halten loslassen"
+        sequence: !input long_release_action_mode2
+
+      - conditions:
+          - condition: trigger
+            id: "2 scroll +"
+        sequence: !input scroll_plus_action_mode2
+
+      - conditions:
+          - condition: trigger
+            id: "2 scroll -"
+        sequence: !input scroll_minus_action_mode2
