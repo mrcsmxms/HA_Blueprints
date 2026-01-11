@@ -1,31 +1,28 @@
 blueprint:
   name: IKEA Bilresa Scroll Wheel Remote
   description: >
-    Scrollwheel Remote mit einklappbaren UI-Sektionen.
-    Mode 1 vollständig umgesetzt.
+    Mode 1 – Actions only, mit UI-Gruppen (einklappbar).
   domain: automation
 
   input:
-
     mode1_entities:
       name: "Mode 1 – Entities"
       icon: mdi:remote
       collapsed: true
       input:
-
-        scroll_plus_sensor:
+        mode1_scroll_plus_sensor:
           name: Scroll right sensor
           selector:
             entity:
               domain: sensor
 
-        scroll_minus_sensor:
+        mode1_scroll_minus_sensor:
           name: Scroll left sensor
           selector:
             entity:
               domain: sensor
 
-        button_event_entity:
+        mode1_button_event_entity:
           name: Button event entity
           selector:
             entity:
@@ -36,38 +33,37 @@ blueprint:
       icon: mdi:play-circle-outline
       collapsed: true
       input:
-
-        press_once:
+        mode1_press_once:
           name: Press once
           default: []
           selector:
             action:
 
-        press_twice:
+        mode1_press_twice:
           name: Press twice
           default: []
           selector:
             action:
 
-        long_hold:
+        mode1_long_hold:
           name: Long hold
           default: []
           selector:
             action:
 
-        release_after_hold:
+        mode1_release_after_hold:
           name: Release after hold
           default: []
           selector:
             action:
 
-        scroll_right:
+        mode1_scroll_right:
           name: Scroll right
           default: []
           selector:
             action:
 
-        scroll_left:
+        mode1_scroll_left:
           name: Scroll left
           default: []
           selector:
@@ -77,30 +73,29 @@ mode: parallel
 max: 20
 
 trigger:
-  # Breiter Trigger für Multi-Press (auch gleiche event_type-Werte hintereinander)
   - platform: state
-    entity_id: !input mode1_entities.button_event_entity
+    entity_id: !input mode1_button_event_entity
     id: press
 
   - platform: state
-    entity_id: !input mode1_entities.button_event_entity
+    entity_id: !input mode1_button_event_entity
     attribute: event_type
     to: long_press
     id: long_press
 
   - platform: state
-    entity_id: !input mode1_entities.button_event_entity
+    entity_id: !input mode1_button_event_entity
     attribute: event_type
     to: long_release
     id: long_release
 
   - platform: state
-    entity_id: !input mode1_entities.scroll_plus_sensor
+    entity_id: !input mode1_scroll_plus_sensor
     to: "1"
     id: scroll_plus
 
   - platform: state
-    entity_id: !input mode1_entities.scroll_minus_sensor
+    entity_id: !input mode1_scroll_minus_sensor
     to: "1"
     id: scroll_minus
 
@@ -109,7 +104,6 @@ action:
       et: "{{ trigger.to_state.attributes.event_type if trigger.to_state else none }}"
 
   - choose:
-
       - conditions:
           - condition: trigger
             id: press
@@ -118,29 +112,29 @@ action:
               - conditions:
                   - condition: template
                     value_template: "{{ et == 'multi_press_1' }}"
-                sequence: !input mode1_actions.press_once
+                sequence: !input mode1_press_once
 
               - conditions:
                   - condition: template
                     value_template: "{{ et == 'multi_press_2' }}"
-                sequence: !input mode1_actions.press_twice
+                sequence: !input mode1_press_twice
 
       - conditions:
           - condition: trigger
             id: long_press
-        sequence: !input mode1_actions.long_hold
+        sequence: !input mode1_long_hold
 
       - conditions:
           - condition: trigger
             id: long_release
-        sequence: !input mode1_actions.release_after_hold
+        sequence: !input mode1_release_after_hold
 
       - conditions:
           - condition: trigger
             id: scroll_plus
-        sequence: !input mode1_actions.scroll_right
+        sequence: !input mode1_scroll_right
 
       - conditions:
           - condition: trigger
             id: scroll_minus
-        sequence: !input mode1_actions.scroll_left
+        sequence: !input mode1_scroll_left
