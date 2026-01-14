@@ -76,6 +76,7 @@ blueprint:
 
     <details>
     <summary><b>4. Why this structure is used</b></summary>
+
     
     The BILRESA remote can emit the same event type multiple times in a row (e.g. two single presses).
 
