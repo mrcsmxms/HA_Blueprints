@@ -1,7 +1,7 @@
 blueprint:
   name: IKEA Bilresa Scroll Wheel Remote
   description: >
-    <center>⚠️ Important notes for using this Blueprint with the <b>IKEA BILRESA Scroll Wheel Remote</b> ⚠️</center>
+    <center>⚠️ Important notes for using this Blueprint with the <b>IKEA BILRESA Scroll Wheel Remote</b> ⚠️
     
 
     This Blueprint is designed specifically for the IKEA BILRESA Scroll Wheel Remote and relies on entities that are <b>not enabled by default</b> in Home Assistant.
@@ -84,6 +84,7 @@ blueprint:
 
     This ensures consistent behavior for rapid presses, long presses, and scroll events.
     </details>
+    </center>
   domain: automation
 
   input:
