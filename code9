@@ -28,7 +28,7 @@ blueprint:
 
 
     <details>
-    <summary><b>2. Numbering scheme (Sensors 1–9)</b></summary>
+    <summary><b>2. Numbering scheme (Sensors 1–09)</b></summary>
 
 
     Home Assistant assigns the BILRESA entities using a fixed numeric scheme, which this Blueprint follows consistently:
