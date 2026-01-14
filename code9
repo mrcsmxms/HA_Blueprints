@@ -17,12 +17,9 @@ blueprint:
     • Manually enable all related sensor and event entities  
   
     Without enabling these entities, the Blueprint will not receive any triggers.
-
-
     </details>
-
     <details>
-    <summary><b>2. Numbering scheme (Sensors 01–09)</b></summary>
+    <summary><b>2. Numbering scheme (Sensors 1–9)</b></summary>
 
 
     Home Assistant assigns the BILRESA entities using a fixed numeric scheme, which this Blueprint follows consistently:
@@ -43,8 +40,6 @@ blueprint:
   
     This Blueprint is explicitly structured around this numbering.
     </details>
-
-
     <details>
     <summary><b>3. Modes and actions</b></summary>
   
@@ -66,7 +61,6 @@ blueprint:
   
     All actions are fully user-defined via the Blueprint UI.
     </details>
-  
     <details>
     <summary><b>4. Why this structure is used</b></summary>
 
