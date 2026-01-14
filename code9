@@ -1,7 +1,8 @@
 blueprint:
   name: IKEA Bilresa Scroll Wheel Remote
   description: >
-    ⚠️ <b>Important notes for using this Blueprint with the IKEA BILRESA Scroll Wheel Remote</b> ⚠️
+    <center>⚠️ <b>Important notes for using this Blueprint with the IKEA BILRESA Scroll Wheel Remote</b> ⚠️</center>
+
 
     This Blueprint is designed specifically for the IKEA BILRESA Scroll Wheel Remote and relies on entities that are <b>not enabled by default</b> in Home Assistant.
   
@@ -17,41 +18,60 @@ blueprint:
   
     Without enabling these entities, the Blueprint will not receive any triggers.
     </details>
-  
+
+
     <details>
     <summary><b>2. Numbering scheme (Sensors 1–9)</b></summary>
-  
+
+
     Home Assistant assigns the BILRESA entities using a fixed numeric scheme, which this Blueprint follows consistently:
-  
+
+
     <b>Sensors 1–2</b> → Scroll wheel (Mode 1, left / right)  
+
     <b>Event 3</b> → Button press (Mode 1)  
+
     <b>Sensors 4–5</b> → Scroll wheel (Mode 2, left / right)  
+
     <b>Event 6</b> → Button press (Mode 2)  
+
     <b>Sensors 7–8</b> → Scroll wheel (Mode 3, left / right)  
+
     <b>Event 9</b> → Button press (Mode 3)  
+
   
     This Blueprint is explicitly structured around this numbering.
     </details>
-  
+
+
     <details>
     <summary><b>3. Modes and actions</b></summary>
   
     Each mode (1–3) is handled independently:
+
   
     • Single press (multi_press_1)  
+
     • Double press (multi_press_2)  
+
     • Long press  
+
     • Long release  
+
     • Scroll left  
+
     • Scroll right  
+
   
     All actions are fully user-defined via the Blueprint UI.
     </details>
   
     <details>
     <summary><b>4. Why this structure is used</b></summary>
+
   
     The BILRESA remote can emit the same event type multiple times in a row (e.g. two single presses).
+
   
     To reliably detect this, the Blueprint uses broad state triggers and evaluates the event_type internally instead of relying on state changes alone.
     </details>
