@@ -9,22 +9,21 @@ blueprint:
     <details>
     <summary><b>1. Enable sensors first</b></summary>
   
-    After pairing the BILRESA remote, Home Assistant exposes several sensor and event entities, but some of them are disabled by default.
-  
+    After pairing the BILRESA remote, Home Assistant exposes several sensor and event entities, but some of them are disabled by default.<br>
     Before this Blueprint can work correctly, you must:
-  
+    <br><br>
     • Open the device page of the IKEA BILRESA remote in Home Assistant  
     • Manually enable all related sensor and event entities  
-  
+    <br>
     Without enabling these entities, the Blueprint will not receive any triggers.
     </details>
+    <br>
     <details>
-    <summary><b>2. Numbering scheme (Sensors 1–9)</b></summary>
+    <summary><b>2. Numbering scheme (Sensors 01–9)</b></summary>
 
 
     Home Assistant assigns the BILRESA entities using a fixed numeric scheme, which this Blueprint follows consistently:
-
-
+    <br>
     <b>Sensors 1–2</b> → Scroll wheel (Mode 1, left / right)  
 
     <b>Event 3</b> → Button press (Mode 1)  
@@ -40,6 +39,7 @@ blueprint:
   
     This Blueprint is explicitly structured around this numbering.
     </details>
+    <br>
     <details>
     <summary><b>3. Modes and actions</b></summary>
   
