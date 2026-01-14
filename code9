@@ -5,10 +5,10 @@ blueprint:
 
 
     This Blueprint is designed specifically for the IKEA BILRESA Scroll Wheel Remote and relies on entities that are <b>not enabled by default</b> in Home Assistant.
-  
+    
     <details>
     <summary><b>1. Enable sensors first</b></summary>
-  
+    <br>
     After pairing the BILRESA remote, Home Assistant exposes several sensor and event entities, but some of them are disabled by default.<br>
     Before this Blueprint can work correctly, you must:
     <br><br>
@@ -19,7 +19,7 @@ blueprint:
     </details>
     <br>
     <details>
-    <summary><b>2. Numbering scheme (Sensors 01–9)</b></summary>
+    <summary><b>2. Numbering scheme (Sensors 1–9)</b></summary>
 
 
     Home Assistant assigns the BILRESA entities using a fixed numeric scheme, which this Blueprint follows consistently:
@@ -61,6 +61,7 @@ blueprint:
   
     All actions are fully user-defined via the Blueprint UI.
     </details>
+    <br>
     <details>
     <summary><b>4. Why this structure is used</b></summary>
 
