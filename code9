@@ -1,8 +1,66 @@
 blueprint:
   name: IKEA Bilresa Scroll Wheel Remote
   description: >
-    Multi-Press, Hold und Scroll werden ausschließlich über frei definierbare Aktionen abgebildet.
-    Der breite Druck-Trigger stellt sicher, dass gleiche event_type-Werte mehrfach hintereinander erkannt werden.
+    ⚠️ Important notes for using this Blueprint with the IKEA BILRESA Scroll Wheel Remote
+
+    This Blueprint is designed specifically for the IKEA BILRESA Scroll Wheel Remote and relies on entities that are not enabled by default in Home Assistant.
+    
+    1. Enable sensors and events first
+    
+    After pairing the BILRESA remote, Home Assistant exposes several sensor and event entities, but most of them are disabled by default.
+    
+    Before this Blueprint can work correctly, you must:
+    
+    Open the device page of the IKEA BILRESA remote in Home Assistant
+    
+    Manually enable all related sensor and event entities
+    
+    Without enabling these entities, the Blueprint will not receive any triggers.
+    
+    2. Numbering scheme (Sensors 1–9)
+    
+    Home Assistant assigns the BILRESA entities using a fixed numeric scheme, which this Blueprint follows consistently:
+    
+    Sensors 1–2 → Scroll wheel (Mode 1, left / right)
+    
+    Event 3 → Button press (Mode 1)
+    
+    Sensors 4–5 → Scroll wheel (Mode 2, left / right)
+    
+    Event 6 → Button press (Mode 2)
+    
+    Sensors 7–8 → Scroll wheel (Mode 3, left / right)
+    
+    Event 9 → Button press (Mode 3)
+    
+    This Blueprint is explicitly structured around this numbering.
+    When configuring the inputs, make sure you select the entities that match these numbers.
+    
+    3. Modes and actions
+    
+    Each mode (1–3) is handled independently:
+    
+    Single press (multi_press_1)
+    
+    Double press (multi_press_2)
+    
+    Long press
+    
+    Long release
+    
+    Scroll left
+    
+    Scroll right
+    
+    All actions are fully user-defined via the Blueprint UI.
+    The Blueprint only handles input detection and routing, not the behavior itself.
+    
+    4. Why this structure is used
+    
+    The BILRESA remote can emit the same event type multiple times in a row (e.g. two single presses).
+    To reliably detect this, the Blueprint uses broad state triggers and evaluates the event_type internally instead of relying on state changes alone.
+    
+    This ensures consistent behavior for rapid presses, long presses, and scroll events.
   domain: automation
 
   input:
