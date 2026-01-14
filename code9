@@ -2,10 +2,11 @@ blueprint:
   name: IKEA Bilresa Scroll Wheel Remote
   description: >
     ⚠️ Important notes for using this Blueprint with the IKEA BILRESA Scroll Wheel Remote ⚠️
+    <details>
 
     This Blueprint is designed specifically for the IKEA BILRESA Scroll Wheel Remote and relies on entities that are not enabled by default in Home Assistant.
     
-    1. Enable sensors and events first
+    <b><summary>1. Enable sensors and events first</b></summary>
     
     After pairing the BILRESA remote, Home Assistant exposes several sensor and event entities, but most of them are disabled by default.
     Before this Blueprint can work correctly, you must:
@@ -44,7 +45,7 @@ blueprint:
     
     The BILRESA remote can emit the same event type multiple times in a row (e.g. two single presses).
     To reliably detect this, the Blueprint uses broad state triggers and evaluates the event_type internally instead of relying on state changes alone.
-    This ensures consistent behavior for rapid presses, long presses, and scroll events.
+    This ensures consistent behavior for rapid presses, long presses, and scroll events.<details>
   domain: automation
 
   input:
